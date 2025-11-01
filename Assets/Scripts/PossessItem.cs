@@ -42,13 +42,37 @@ public class PossessItem : MonoBehaviour
 
     public void Possess(GameObject itemObject)
     {
+        if (itemObject == null) return;
+
+        // copy sprite info
         SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer itemSprite = itemObject.GetComponent<SpriteRenderer>();
 
-        gameObject.transform.position = itemObject.transform.position;
+        if (playerSprite != null && itemSprite != null)
+        {
+            gameObject.transform.position = itemObject.transform.position;
 
-        playerSprite.sprite = itemSprite.sprite;
-        playerSprite.color = itemSprite.color;
+            playerSprite.sprite = itemSprite.sprite;
+            playerSprite.color = itemSprite.color;
+            playerSprite.flipX = itemSprite.flipX;
+            playerSprite.flipY = itemSprite.flipY;
+            playerSprite.transform.localScale = itemSprite.transform.localScale;
+        }
+
+        // copy collider(s) from item to player
+        Collider2D itemCol = itemObject.GetComponent<Collider2D>();
+        if (itemCol != null)
+        {
+            // remove existing colliders on player
+            Collider2D[] existing = GetComponents<Collider2D>();
+            foreach (Collider2D col in existing)
+            {
+                Destroy(col);
+            }
+            // copy new collider from item
+            Collider2D newCol = itemCol;
+            Collider2D playerCol = gameObject.AddComponent(newCol.GetType()) as Collider2D;
+        }
         Destroy(itemObject);
     }
 
