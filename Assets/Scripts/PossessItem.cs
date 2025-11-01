@@ -8,6 +8,13 @@ public class PossessItem : MonoBehaviour
     private GameObject item;
     private GameObject possessedItem;
     private bool isPossessing = false;
+    public bool IsPossessing
+    {
+        get
+        {
+            return isPossessing;
+        }
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,7 +22,6 @@ public class PossessItem : MonoBehaviour
         {
             triggerActive = true;
             item = collision.gameObject;
-            Debug.Log("Trigger Active");
         }
     }
 
@@ -25,7 +31,6 @@ public class PossessItem : MonoBehaviour
         {
             triggerActive = false;
             item = null;
-            Debug.Log("Trigger Off");
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -88,13 +93,18 @@ public class PossessItem : MonoBehaviour
     {
         SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
         Collider2D playerCollider = GetComponent<Collider2D>();
+        Transform playerTransform = GetComponent<Transform>();
+
         SpriteRenderer[] originalSprite = GetComponentsInChildren<SpriteRenderer>(true);
         Collider2D[] originalCollider = GetComponentsInChildren<Collider2D>(true);
+        Transform[] originalTransform = GetComponentsInChildren<Transform>(true);
         
         playerSprite.sprite = originalSprite[1].sprite;
         playerSprite.color = originalSprite[1].color;
         playerSprite.flipX = originalSprite[1].flipX;
         playerSprite.flipY = originalSprite[1].flipY;
+
+        playerSprite.transform.localScale = originalTransform[1].transform.localScale;
 
         // remove existing colliders on player
         Collider2D[] existing = GetComponents<Collider2D>();
