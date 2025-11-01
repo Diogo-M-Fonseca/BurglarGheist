@@ -4,7 +4,10 @@ using UnityEngine;
 public class PossessItem : MonoBehaviour
 {
     [SerializeField]private bool triggerActive = false;
+
     private GameObject item;
+    private GameObject possessedItem;
+    private bool isPossessing = false;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,25 +30,28 @@ public class PossessItem : MonoBehaviour
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        
-    }
+    {}
 
     // Update is called once per frame
     void Update()
     {
-        if (triggerActive && Input.GetKey(KeyCode.E))
+        if (triggerActive && Input.GetKey(KeyCode.E) && !isPossessing)
         {
             Possess(item);
+        }
+        if (Input.GetKey(KeyCode.Q) && isPossessing)
+        {
+            Unpossess();
         }
     }
 
     public void Possess(GameObject itemObject)
     {
+        possessedItem = itemObject;
+        SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
         if (itemObject == null) return;
 
         // copy sprite info
-        SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer itemSprite = itemObject.GetComponent<SpriteRenderer>();
 
         if (playerSprite != null && itemSprite != null)
@@ -73,7 +79,37 @@ public class PossessItem : MonoBehaviour
             Collider2D newCol = itemCol;
             Collider2D playerCol = gameObject.AddComponent(newCol.GetType()) as Collider2D;
         }
-        Destroy(itemObject);
+
+        itemObject.SetActive(false);
+        isPossessing = true;
     }
 
+    public void Unpossess()
+    {
+        SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
+        Collider2D playerCollider = GetComponent<Collider2D>();
+        SpriteRenderer[] originalSprite = GetComponentsInChildren<SpriteRenderer>(true);
+        Collider2D[] originalCollider = GetComponentsInChildren<Collider2D>(true);
+        
+        playerSprite.sprite = originalSprite[1].sprite;
+        playerSprite.color = originalSprite[1].color;
+        playerSprite.flipX = originalSprite[1].flipX;
+        playerSprite.flipY = originalSprite[1].flipY;
+
+        // remove existing colliders on player
+        Collider2D[] existing = GetComponents<Collider2D>();
+        foreach (Collider2D col in existing)
+        {
+            Destroy(col);
+        }
+        playerCollider = gameObject.AddComponent(originalCollider[1].GetType()) as Collider2D;
+
+        possessedItem.transform.position = gameObject.transform.position;
+
+        possessedItem.SetActive(true);
+
+        isPossessing = false;
+
+        possessedItem = null;
+    }
 }
