@@ -10,7 +10,6 @@ public class PossessItem : MonoBehaviour
     private GameObject possessedItem;
     private Win win;
     private bool isPossessing = false;
-    private bool goal;
     private int stolen_items;
     [SerializeField] private int winCondition;
     public bool IsPossessing
