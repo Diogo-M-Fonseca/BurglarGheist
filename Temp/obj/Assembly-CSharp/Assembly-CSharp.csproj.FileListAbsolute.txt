@@ -1,9 +1,0 @@
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\bin\Debug\Assembly-CSharp.deps.json
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\bin\Debug\Assembly-CSharp.dll
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\bin\Debug\Assembly-CSharp.pdb
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.csproj.AssemblyReference.cache
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.csproj.CoreCompileInputs.cache
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.sourcelink.json
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.dll
-C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\Temp\obj\Assembly-CSharp\Assembly-CSharp.pdb

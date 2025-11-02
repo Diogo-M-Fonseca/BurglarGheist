@@ -31,10 +31,15 @@ public class PossessionRotation : MonoBehaviour
     void Update()
     {
 
-        if (posses.IsPossessing)
-        {
-            StartRotation();
-        }
+            if (posses.IsPossessing)
+            {
+                StartRotation();
+            }
+            else
+            {
+                if (UIDamage.Instance != null)
+                UIDamage.Instance.Heal(2);
+            }
     }
 
 
@@ -49,9 +54,11 @@ public class PossessionRotation : MonoBehaviour
 
             if (posses.IsPossessing == true)
             {
-                rb = GetComponent<Rigidbody2D>();
+                if (UIDamage.Instance != null)
+                UIDamage.Instance.ApplyDamage(1);
                 if (collision.gameObject.name == "Wall")
                 {
+
                     if (TeleportTarget != null)
                     {
                         transform.position = TeleportTarget.position;
