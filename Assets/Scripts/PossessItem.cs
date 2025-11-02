@@ -12,6 +12,7 @@ public class PossessItem : MonoBehaviour
     private bool isPossessing = false;
     private bool goal;
     private int stolen_items;
+    [SerializeField] private int winCondition;
     public bool IsPossessing
     {
         get
@@ -58,6 +59,10 @@ public class PossessItem : MonoBehaviour
         {
             Unpossess();
         }
+        if (stolen_items >= winCondition)
+        {
+            //win the game
+        }
     }
 
     public void Possess(GameObject itemObject)
@@ -73,7 +78,7 @@ public class PossessItem : MonoBehaviour
         {
             gameObject.transform.position = itemObject.transform.position;
 
-            playerSprite.sprite = itemSprite.sprite;
+            gameObject.GetComponent<SpriteRenderer>().sprite = itemSprite.sprite;
             playerSprite.color = itemSprite.color;
             playerSprite.flipX = itemSprite.flipX;
             playerSprite.flipY = itemSprite.flipY;
@@ -131,6 +136,7 @@ public class PossessItem : MonoBehaviour
         playerSprite.flipY = originalSprite[1].flipY;
 
         playerSprite.transform.localScale = originalTransform[1].transform.localScale;
+        playerTransform.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         // remove existing colliders on player
         Collider2D[] existing = GetComponents<Collider2D>();
