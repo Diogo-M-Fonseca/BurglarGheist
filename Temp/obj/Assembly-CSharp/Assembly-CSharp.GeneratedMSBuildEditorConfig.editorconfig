@@ -1,5 +1,8 @@
 is_global = true
 build_property.RootNamespace = 
-build_property.ProjectDir = C:\Users\diogo\Desktop\Projects\BurglarGheist\BurglarGheist\
+build_property.ProjectDir = C:\Users\JoaoFranco\Desktop\1o_game_jam\BG\BurglarGheist\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
