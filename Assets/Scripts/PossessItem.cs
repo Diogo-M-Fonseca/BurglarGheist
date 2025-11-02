@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PossessItem : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PossessItem : MonoBehaviour
     private Win win;
     private bool isPossessing = false;
     private int stolen_items;
+    [SerializeField] [Range(0,2)] private int sceneToSwitch;
     [SerializeField] private int winCondition;
     public bool IsPossessing
     {
@@ -60,12 +62,13 @@ public class PossessItem : MonoBehaviour
         }
         if (stolen_items >= winCondition)
         {
-            //win the game
+            SceneManager.LoadScene(sceneToSwitch);
         }
     }
 
     public void Possess(GameObject itemObject)
     {
+        gameObject.GetComponent<Animator>().enabled = false;
         possessedItem = itemObject;
         SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
         if (itemObject == null) return;
@@ -105,6 +108,7 @@ public class PossessItem : MonoBehaviour
 
     public void Unpossess()
     {
+        gameObject.GetComponent<Animator>().enabled = true;
         if (win.Goal == false)
         {
             possessedItem.SetActive(true);

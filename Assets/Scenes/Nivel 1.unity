@@ -6234,6 +6234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerActive: 0
+  sceneToSwitch: 1
   winCondition: 3
 --- !u!114 &1034085898
 MonoBehaviour:
@@ -6717,6 +6718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerActive: 0
+  sceneToSwitch: 0
   winCondition: 0
 --- !u!58 &1440840858
 CircleCollider2D:
