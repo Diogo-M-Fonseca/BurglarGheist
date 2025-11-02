@@ -7,20 +7,22 @@ namespace BurglarGheist
 {
 public class PossessionRotation : MonoBehaviour
     {
-    [SerializeField] private float rotationSpeed = 180f;
-    private bool isRotating = false;
-    [SerializeField] private int time;
-    private Rigidbody2D rb;
-    [SerializeField] private Transform TeleportTarget;
-    private PossessItem posses;
-    private SpriteRenderer spriteRenderer;
+        [SerializeField] private float rotationSpeed = 180f;
+        private bool isRotating = false;
+        [SerializeField] private int time;
+        private Rigidbody2D rb;
+        [SerializeField] private Transform TeleportTarget;
+        private PossessItem posses;
+        private SpriteRenderer spriteRenderer;
+        public int numberItemCollisions = 0;
+        //public int NumberItemCollisions { get => numberItemCollisions; set; }
 
-    public void Awake()
-    {
-        posses = GetComponent<PossessItem>();
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        public void Awake()
+        {
+            posses = GetComponent<PossessItem>();
+            rb = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
 
     public void StartRotation()
     {
@@ -30,7 +32,6 @@ public class PossessionRotation : MonoBehaviour
 
     void Update()
     {
-
             if (posses.IsPossessing)
             {
                 StartRotation();
@@ -56,12 +57,18 @@ public class PossessionRotation : MonoBehaviour
             {
                 if (UIDamage.Instance != null)
                 UIDamage.Instance.ApplyDamage(1);
-                if (collision.gameObject.name == "Wall")
+                if (collision.gameObject.name == "Walls")
                 {
-
+                    if (numberItemCollisions >= 3)
+                    {
+                        numberItemCollisions = 0;
+                        posses.Unpossess(true);
+                        changeDirection(collision);
+                    }
+                    numberItemCollisions++;
                     if (TeleportTarget != null)
                     {
-                        transform.position = TeleportTarget.position;
+                        gameObject.transform.position = TeleportTarget.position;
                         if (rb != null)
                         {
                             rb.linearVelocity = Vector2.zero;

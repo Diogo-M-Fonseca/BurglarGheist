@@ -6235,7 +6235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerActive: 0
   sceneToSwitch: 1
-  winCondition: 3
+  winCondition: 2
 --- !u!114 &1034085898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6398,6 +6398,7 @@ MonoBehaviour:
   rotationSpeed: 45
   time: 450
   TeleportTarget: {fileID: 1406465964}
+  numberItemCollisions: 0
 --- !u!114 &1034085904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7033,7 +7034,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 1, b: 0.022755146, a: 1}
   m_FlipX: 0

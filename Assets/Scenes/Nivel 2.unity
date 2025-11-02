@@ -191,7 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 45
   time: 450
-  TeleportTarget: {fileID: 0}
+  TeleportTarget: {fileID: 1406465964}
+  numberItemCollisions: 0
 --- !u!114 &1668418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerActive: 0
   sceneToSwitch: 2
-  winCondition: 3
+  winCondition: 1
 --- !u!114 &1668419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +508,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 1, b: 0.022755146, a: 1}
   m_FlipX: 0
@@ -528,7 +529,7 @@ Transform:
   m_GameObject: {fileID: 387688834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.11, y: -11.15, z: 0}
+  m_LocalPosition: {x: 27.96, y: -11, z: 0}
   m_LocalScale: {x: 4.741323, y: 3.0250404, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

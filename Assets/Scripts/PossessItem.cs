@@ -14,6 +14,7 @@ public class PossessItem : MonoBehaviour
     private int stolen_items;
     [SerializeField] [Range(0,2)] private int sceneToSwitch;
     [SerializeField] private int winCondition;
+    private PossessionRotation pr;
     public bool IsPossessing
     {
         get
@@ -47,6 +48,7 @@ public class PossessItem : MonoBehaviour
     void Start()
     {
         win = GetComponent<Win>();
+        pr = GetComponent<PossessionRotation>();
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class PossessItem : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Q) && isPossessing)
         {
-            Unpossess();
+            Unpossess(false);
         }
         if (stolen_items >= winCondition)
         {
@@ -106,13 +108,21 @@ public class PossessItem : MonoBehaviour
         isPossessing = true;
     }
 
-    public void Unpossess()
+    public void Unpossess(bool destroyItem)
     {
         gameObject.GetComponent<Animator>().enabled = true;
+        possessedItem.transform.position = gameObject.transform.position;
         if (win.Goal == false)
         {
-            possessedItem.SetActive(true);
-            possessedItem.transform.position = gameObject.transform.position;
+            if (destroyItem)
+            {
+
+                Destroy(possessedItem);
+            }
+            else
+            {
+                possessedItem.SetActive(true);
+            }
         }
         else if (win.Goal == true)
         {
