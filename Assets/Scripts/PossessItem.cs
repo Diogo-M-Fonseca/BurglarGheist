@@ -1,17 +1,17 @@
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PossessItem : MonoBehaviour
 {
-    [SerializeField] private bool triggerActive = false;
-    [SerializeField] private int wallCollisionsToDestroy = 3;
-
-    //public Vector3 spawnPointPosition; 
+    [SerializeField]private bool triggerActive = false;
 
     private GameObject item;
     private GameObject possessedItem;
+    private Win win;
     private bool isPossessing = false;
-    private int wallCollisionsCount = 0;
+    private bool goal;
+    private int stolen_items;
     public bool IsPossessing
     {
         get
@@ -19,10 +19,9 @@ public class PossessItem : MonoBehaviour
             return isPossessing;
         }
     }
-
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Item"))
+        if (collision.CompareTag("Item"))
         {
             triggerActive = true;
             item = collision.gameObject;
@@ -31,15 +30,22 @@ public class PossessItem : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Item"))
+        if (collision.CompareTag("Item"))
         {
             triggerActive = false;
             item = null;
         }
     }
+    public void IncrementStolenItems()
+    {
+        stolen_items++;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {}
+    {
+        win = GetComponent<Win>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -48,18 +54,15 @@ public class PossessItem : MonoBehaviour
         {
             Possess(item);
         }
-    //    if (Input.GetKey(KeyCode.Q) && isPossessing)
-    //    {
-    //        Unpossess();
-    //    }
+        if (Input.GetKey(KeyCode.Q) && isPossessing)
+        {
+            Unpossess();
+        }
     }
-
 
     public void Possess(GameObject itemObject)
     {
         possessedItem = itemObject;
-        //spawnPointPosition = possessedItem.transform.position; ERRO AQUI
-        wallCollisionsCount = 0;
         SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
         if (itemObject == null) return;
 
@@ -98,6 +101,22 @@ public class PossessItem : MonoBehaviour
 
     public void Unpossess()
     {
+        if (win.Goal == false)
+        {
+            possessedItem.SetActive(true);
+            possessedItem.transform.position = gameObject.transform.position;
+        }
+        else if (win.Goal == true)
+        {
+            IncrementStolenItems();
+            Destroy(possessedItem);
+        }
+
+        isPossessing = false;
+
+        possessedItem = null;
+        item = null;
+        
         SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
         Collider2D playerCollider = GetComponent<Collider2D>();
         Transform playerTransform = GetComponent<Transform>();
@@ -105,7 +124,7 @@ public class PossessItem : MonoBehaviour
         SpriteRenderer[] originalSprite = GetComponentsInChildren<SpriteRenderer>(true);
         Collider2D[] originalCollider = GetComponentsInChildren<Collider2D>(true);
         Transform[] originalTransform = GetComponentsInChildren<Transform>(true);
-
+        
         playerSprite.sprite = originalSprite[1].sprite;
         playerSprite.color = originalSprite[1].color;
         playerSprite.flipX = originalSprite[1].flipX;
@@ -121,44 +140,5 @@ public class PossessItem : MonoBehaviour
         }
         playerCollider = gameObject.AddComponent(originalCollider[1].GetType()) as Collider2D;
 
-        possessedItem.transform.position = gameObject.transform.position;
-
-        possessedItem.SetActive(true);
-
-        isPossessing = false;
-
-        possessedItem = null;
     }
-    public void OnWallCollision(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Wall")
-        {
-            if (isPossessing)
-            {
-                wallCollisionsCount++;
-
-
-                if (wallCollisionsCount >= wallCollisionsToDestroy)
-                {
-                    DestroyPossessedItem();
-                }
-            }
-        }
-    }
-
-    private void DestroyPossessedItem()
-    {
-        if (possessedItem != null)
-        {
-            Destroy(possessedItem);
-            Unpossess();
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        OnWallCollision(collision);
-    }
-
-
 }
